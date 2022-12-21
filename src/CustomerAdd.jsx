@@ -32,6 +32,8 @@ const CustomerAdd = ({ setLisäystila, setIsPositive, setMessage, setShowMessage
             fax: newFax
         }
 
+        
+
         CustomerService.create(newCustomer)
             .then(response => {
                 if (response.status === 200) {

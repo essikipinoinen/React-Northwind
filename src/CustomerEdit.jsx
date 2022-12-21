@@ -5,6 +5,7 @@ import './App.css'
 
 const CustomerEdit = ({ setMuokkaustila, setIsPositive, setMessage, setShowMessage, muokattavaCustomer }) => {
 
+    
     const [newCustomerId, setNewCustomerId] = useState(muokattavaCustomer.customerId)
     const [newCompanyName, setNewCompanyName] = useState(muokattavaCustomer.companyName)
     const [newContactName, setNewContactName] = useState(muokattavaCustomer.contactName)
@@ -28,7 +29,7 @@ const CustomerEdit = ({ setMuokkaustila, setIsPositive, setMessage, setShowMessa
             address: newAddress,
             city: newCity,
             postalCode: newPostalCode,
-            phone: newPhone,
+            phone: newPhone
         }
 
         CustomerService.update(newCustomer)
@@ -57,6 +58,7 @@ const CustomerEdit = ({ setMuokkaustila, setIsPositive, setMessage, setShowMessa
             })
     }
 
+    
 
     return (
         <div id="edit">

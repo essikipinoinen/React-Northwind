@@ -10,6 +10,9 @@ label {
   clear:both;
 }
 
+.navBar {
+  margin-bottom: 50px;
+}
 
 #edit {
   text-align: center;

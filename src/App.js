@@ -1,10 +1,15 @@
 import './App.css'
 import Laskuri from './laskuri'
-import Viesti from './viesti'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Posts from './Posts'
 import CustomerList from './CustomerList'
+import UserList from './UserList'
 import Message from './Message'
+import Navbar from 'react-bootstrap/Navbar'
+import Nav from 'react-bootstrap/Nav'
+import 'bootstrap/dist/css/bootstrap.min.css'
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
+import Login from './Login'
 
 
 const App = () => {
@@ -14,7 +19,18 @@ const App = () => {
   const [showMessage, setShowMessage] = useState(false)
   const [message, setMessage] = useState('')
   const [isPositive, setIsPositive] = useState(false)
+  const [loggedInUser, setLoggedInUser] = useState('')
 
+  useEffect(() => {
+    let storedUser = localStorage.getItem("username")
+    if (storedUser !== null)
+    setLoggedInUser(storedUser)
+  }, [])
+
+  const logout = () => {
+    localStorage.clear()
+    setLoggedInUser('')
+  }
 
   const huomio = () => {
     alert("Huomio!")
@@ -22,20 +38,41 @@ const App = () => {
 
   return (
     <div className="App">
-      <h1>Heippa Reactista!</h1>
 
-      {showMessage && <Message message={message} isPositive={isPositive} />}
+      {!loggedInUser && <Login setMessage={setMessage} setIsPositive={setIsPositive}
+        setShowMessage={setShowMessage} setLoggedInUser={setLoggedInUser} />}
 
-      <CustomerList setIsPositive={setIsPositive} setMessage={setMessage} setShowMessage={setShowMessage} />
+      {loggedInUser &&
 
-      <Posts />
+        <Router>
 
-      {showLaskuri && <Laskuri huomio={huomio} />}
-      {!showLaskuri && <button className='nappi' onClick={() => setShowLaskuri(!showLaskuri)}>Näytä laskuri</button>}
-      {showLaskuri && <button className='nappi' onClick={() => setShowLaskuri(!showLaskuri)}>Piilota laskuri</button>}
+          <Navbar className='navBar' bg="dark" variant="dark">
+            <Nav className="mr-auto">
+              <Link to={'/Customers'} className='nav-link'>Asiakkaat</Link>
+              <Link to={'/Users'} className='nav-link'>Käyttäjät</Link>
+              <Link to={'/Laskuri'} className='nav-link'>Laskuri</Link>
+              <Link to={'/Posts'} className='nav-link'>Typicode-julkaisut</Link>
+              <button onClick={() => logout()}>Logout</button>
+            </Nav>
+          </Navbar>
 
-      <Viesti teksti="Tervehdys App -komponentista!" />
+          <h2>Northwind Traders</h2>
 
+          {showMessage && <Message message={message} isPositive={isPositive} />}
+
+          <Switch>
+            <Route path="/Customers"> <CustomerList setMessage={setMessage} setIsPositive={setIsPositive}
+              setShowMessage={setShowMessage} /></Route>
+            <Route path="/Users"><UserList setMessage={setMessage} setIsPositive={setIsPositive}
+              setShowMessage={setShowMessage} /></Route>
+            <Route path="/Laskuri"> <Laskuri /></Route>
+            <Route path="/Posts"> <Posts /></Route>
+
+
+          </Switch>
+
+        </Router>
+      }
     </div>
   )
 }
