@@ -3,6 +3,7 @@ import Laskuri from './laskuri'
 import React, { useState, useEffect } from 'react'
 import Posts from './Posts'
 import CustomerList from './CustomerList'
+import ProductList from './ProductList'
 import UserList from './UserList'
 import Message from './Message'
 import Navbar from 'react-bootstrap/Navbar'
@@ -24,7 +25,7 @@ const App = () => {
   useEffect(() => {
     let storedUser = localStorage.getItem("username")
     if (storedUser !== null)
-    setLoggedInUser(storedUser)
+      setLoggedInUser(storedUser)
   }, [])
 
   const logout = () => {
@@ -50,6 +51,7 @@ const App = () => {
             <Nav className="mr-auto">
               <Link to={'/Customers'} className='nav-link'>Asiakkaat</Link>
               <Link to={'/Users'} className='nav-link'>Käyttäjät</Link>
+              <Link to={'/Products'} className='nav-link'>Tuotteet</Link>
               <Link to={'/Laskuri'} className='nav-link'>Laskuri</Link>
               <Link to={'/Posts'} className='nav-link'>Typicode-julkaisut</Link>
               <button onClick={() => logout()}>Logout</button>
@@ -64,6 +66,8 @@ const App = () => {
             <Route path="/Customers"> <CustomerList setMessage={setMessage} setIsPositive={setIsPositive}
               setShowMessage={setShowMessage} /></Route>
             <Route path="/Users"><UserList setMessage={setMessage} setIsPositive={setIsPositive}
+              setShowMessage={setShowMessage} /></Route>
+            <Route path="/Products"><ProductList setMessage={setMessage} setIsPositive={setIsPositive}
               setShowMessage={setShowMessage} /></Route>
             <Route path="/Laskuri"> <Laskuri /></Route>
             <Route path="/Posts"> <Posts /></Route>

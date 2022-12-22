@@ -87,7 +87,7 @@ const CustomerAdd = ({ setLisäystila, setIsPositive, setMessage, setShowMessage
                         onChange={({ target }) => setNewCountry(target.value)} />
                 </div>
                 <div>
-                    <input type="text" value={newAddress} placeholder="Oosite"
+                    <input type="text" value={newAddress} placeholder="Osoite"
                         onChange={({ target }) => setNewAddress(target.value)} />
                 </div>
                 <div>
